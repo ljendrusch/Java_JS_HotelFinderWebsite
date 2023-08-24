@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TravelHelper | Login / Register</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="javascript:void(0)">TravelHelper</a>
+                </div>
+            </div>
+        </nav>
+
+        <header id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="text-center">Login or Register</h3>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <form id="login" action="/auth" method="post" class="well">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input id="username" class="form-control" type="text" name="username" placeholder="Username">
+                            </div>
+#if($uerr)
+                            <small id="uerr" class="form-text text-muted">$uerr</small>
+#end
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input id="password" class="form-control" type="password" name="password" placeholder="Password">
+                            </div>
+#if($perr)
+                            <small id="perr" class="form-text text-muted">$perr</small>
+#end
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-default btn-block" name="login">Login</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-default btn-block" name="register">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="error_handling">
+            <div class="row text-muted">
+                <div class="col-sm-6 col-sm-offset-3">
+#if($uerr == "Username not allowed (see below)")
+                    <br>
+                    <h6>Username rules:</h6>
+                    <ul>
+                        <li>6-20 characters long</li>
+                        <li>Starts with letter</li>
+                        <li>Ends with letter or number</li>
+                        <li>Underscore and dot allowed, but not consecutively</li>
+                    </ul>
+#end
+#if($perr == "Password not allowed (see below)")
+                    <br>
+                    <h6>Password rules:</h6>
+                    <ul>
+                        <li>8-20 characters long</li>
+                        <li>Contains one or more lowercase letters</li>
+                        <li>Contains one or more uppercase letters</li>
+                        <li>Contains one or more numbers</li>
+                        <li>Contains one or more symbols, including _.@$!%*?&</li>
+                    </ul>
+#end
+                </div>
+            </div>
+        </section>
+
+        <div class="navbar navbar-fixed-bottom">
+            <h6 id="footer_text">TravelHelper | Login / Register</h6>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TravelHelper | Profile</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body onload="fetchFavHotels()">
+        <section id="data">
+            <input type="hidden" id="username" value="$username">
+        </section>
+
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="javascript:void(0)">TravelHelper</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/myReviews">My Reviews</a></li>
+                        <li class="active"><a href="javascript:void(0)">Profile</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>Welcome, $username</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="text-capitalize">$username's Profile</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6 class="text-right">$last_login</h6>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="fav_hotels">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="btn-group pull-right">
+                            <input id="clear_favs_button" type="button" class="btn btn-default btn-xs" value="Delete All &times;" onclick="clearFavHotels()" disabled="disabled">
+                        </div>
+                        <h3 class="panel-title">Favorited Hotels</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table id="fav_hotels_table" class="table table-striped table-hover">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="link_clicks">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="btn-group pull-right">
+#if ( $link_history )
+                            <form action="/click" method="post">
+                                <button type="submit" class="btn btn-default btn-xs">Delete History <span>&times;</span></button>
+                            </form>
+#end
+#if (! $link_history )
+                            <form action="/click" method="post">
+                                <button type="submit" class="btn btn-default btn-xs" disabled="disabled">Delete History <span>&times;</span></button>
+                            </form>
+#end
+                        </div>
+                        <h3 class="panel-title">Expedia Link History</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-sm-7 text-center">
+                                            <b>Expedia Link</b>
+                                        </div>
+                                        <div class="col-sm-5 text-center">
+                                            <b>Times Visited</b>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+#if ( $link_history )
+#foreach ( $link in $link_history.keySet() )
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <h5>$link</h5>
+                                        </div>
+                                        <div class="col-sm-2 text-center">
+                                            <h5>$link_history.get($link)</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+#end
+#end
+#if (! $link_history )
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-sm-7 text-center">
+                                            <h5 class="text-muted">No link history</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+#end
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="navbar navbar-fixed-bottom">
+            <h6 id="footer_text">TravelHelper | Profile</h6>
+        </div>
+
+        <script src="js/fetchFavHotels.js"></script>
+        <script src="js/clearFavHotels.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
